@@ -16,8 +16,8 @@ RUN CGO_ENABLED=0 go build \
 RUN echo "ID=\"distroless\"" > /etc/os-release
 
 # Stage 2 (Final)
-FROM gcr.io/distroless/static:latest
-COPY --from=builder /etc/os-release /etc/os-release
+FROM debian:bookworm
+# COPY --from=builder /etc/os-release /etc/os-release
 
 COPY --from=builder /app/wings /usr/bin/
 CMD [ "/usr/bin/wings", "--config", "/etc/pterodactyl/config.yml" ]
